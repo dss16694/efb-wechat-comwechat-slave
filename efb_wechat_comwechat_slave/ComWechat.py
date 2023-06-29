@@ -48,7 +48,7 @@ class ComWeChatChannel(SlaveChannel):
     group_members : Dict = {}       # {"group_id" : { "wxID" : "displayName"}}
     
     time_out : int = 200
-    cache =  TTLCache(maxsize=200, ttl= time_out)  # 缓存发送过的消息ID
+    cache =  TTLCache(maxsize=300, ttl= time_out)  # 缓存发送过的消息ID
     file_msg : Dict = {}                           # 存储待修改的文件类消息 {path : msg}
     delete_file : Dict = {}                        # 存储待删除的消息 {path : time}
 
