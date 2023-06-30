@@ -47,14 +47,14 @@ class ComWeChatChannel(SlaveChannel):
     contacts : Dict = {}            # {wxid : {alias : str , remark : str, nickname : str , type : int}} -> {wxid : name(after handle)}
     group_members : Dict = {}       # {"group_id" : { "wxID" : "displayName"}}
     
-    time_out : int = 200
-    cache =  TTLCache(maxsize=300, ttl= time_out)  # 缓存发送过的消息ID
+    time_out : int = 120
+    cache =  TTLCache(maxsize=200, ttl= time_out)  # 缓存发送过的消息ID
     file_msg : Dict = {}                           # 存储待修改的文件类消息 {path : msg}
     delete_file : Dict = {}                        # 存储待删除的消息 {path : time}
 
     __version__ = version.__version__
     logger: logging.Logger = logging.getLogger("comwechat")
-    logger.setLevel(logging.DEBUG)
+    #logger.setLevel(logging.DEBUG)
 
     #MsgType.Voice
     supported_message_types = {MsgType.Text, MsgType.Sticker, MsgType.Image , MsgType.Link , MsgType.File , MsgType.Video , MsgType.Animation, MsgType.Voice}
@@ -68,6 +68,13 @@ class ComWeChatChannel(SlaveChannel):
         self.wxid = self.bot.GetSelfInfo()["data"]["wxId"]
         self.base_path = self.bot.get_base_path()
         self.dir = self.config["dir"]
+        self.loglevel = self.config["loglevel"]
+        if loglevel == "DEBUG":
+            logger.setLevel(logging.DEBUG)
+        elif loglevel == "INFO":
+            logger.setLevel(logging.INFO)
+        elif loglevel == "WARNING":
+            logger.setLevel(logging.WARNING)
         if not self.dir.endswith("/"):
             self.dir += "/"
         ChatMgr.slave_channel = self
