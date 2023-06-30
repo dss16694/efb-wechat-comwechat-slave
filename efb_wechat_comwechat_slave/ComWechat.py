@@ -69,11 +69,12 @@ class ComWeChatChannel(SlaveChannel):
         self.base_path = self.bot.get_base_path()
         self.dir = self.config["dir"]
         self.loglevel = self.config["loglevel"]
-        if loglevel == "DEBUG":
+        self.logger.info(self.loglevel)
+        if self.loglevel == "DEBUG":
             self.logger.setLevel(logging.DEBUG)
-        elif loglevel == "INFO":
+        elif self.loglevel == "INFO":
             self.logger.setLevel(logging.INFO)
-        elif loglevel == "WARNING":
+        elif self.loglevel == "WARNING":
             self.logger.setLevel(logging.WARNING)
         if not self.dir.endswith("/"):
             self.dir += "/"
