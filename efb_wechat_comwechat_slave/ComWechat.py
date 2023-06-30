@@ -70,11 +70,11 @@ class ComWeChatChannel(SlaveChannel):
         self.dir = self.config["dir"]
         self.loglevel = self.config["loglevel"]
         if loglevel == "DEBUG":
-            logger.setLevel(logging.DEBUG)
+            self.logger.setLevel(logging.DEBUG)
         elif loglevel == "INFO":
-            logger.setLevel(logging.INFO)
+            self.logger.setLevel(logging.INFO)
         elif loglevel == "WARNING":
-            logger.setLevel(logging.WARNING)
+            self.logger.setLevel(logging.WARNING)
         if not self.dir.endswith("/"):
             self.dir += "/"
         ChatMgr.slave_channel = self
