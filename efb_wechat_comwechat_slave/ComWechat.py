@@ -54,7 +54,7 @@ class ComWeChatChannel(SlaveChannel):
 
     __version__ = version.__version__
     logger: logging.Logger = logging.getLogger("comwechat")
-    #logger.setLevel(logging.DEBUG)
+    logger.setLevel(logging.INFO)
 
     #MsgType.Voice
     supported_message_types = {MsgType.Text, MsgType.Sticker, MsgType.Image , MsgType.Link , MsgType.File , MsgType.Video , MsgType.Animation, MsgType.Voice}
