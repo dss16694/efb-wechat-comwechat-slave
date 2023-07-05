@@ -40,7 +40,11 @@ def MsgProcess(msg : dict , chat) -> Message:
         try:
             url = re.search("cdnurl\s*=\s*\"(.*?)\"", msg["message"]).group(1).replace("amp;", "")
             file = download_file(url)
-            return efb_image_wrapper(file)
+            gif_clip = VideoFileClip(file.name)
+            temp_file = tempfile.NamedTemporaryFile(suffix=".mp4", delete=True)
+            temp_file_path = temp_file.name
+            gif_clip.write_videofile(temp_file_path, codec='libx264')
+            return efb_video_wrapper(temp_file)
         except:
             return efb_text_simple_wrapper("Image received and download failed. Please check it on your phone.")
 
