@@ -7,6 +7,7 @@ import re
 import pydub
 import json
 from lxml import etree
+from moviepy.editor import *
 
 from ehforwarderbot import utils as efb_utils
 from ehforwarderbot.message import Message
