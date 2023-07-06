@@ -8,6 +8,8 @@ import pydub
 import json
 from lxml import etree
 from moviepy.editor import *
+from PIL import Image
+import shutil
 
 from ehforwarderbot import utils as efb_utils
 from ehforwarderbot.message import Message
