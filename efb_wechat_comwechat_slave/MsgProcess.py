@@ -41,11 +41,22 @@ def MsgProcess(msg : dict , chat) -> Message:
         try:
             url = re.search("cdnurl\s*=\s*\"(.*?)\"", msg["message"]).group(1).replace("amp;", "")
             file = download_file(url)
-            gif_clip = VideoFileClip(file.name)
-            temp_file = tempfile.NamedTemporaryFile(suffix=".mp4", delete=True)
-            temp_file_path = temp_file.name
-            gif_clip.write_videofile(temp_file_path, codec='libx264')
-            return efb_video_wrapper(temp_file)
+#            shutil.copy2(file.name, file.name + ".gif")
+            gif_image = Image.open(file)
+            # 检查是否为动图
+            if "duration" in gif_image.info and gif_image.info.get('duration') > 0:
+                gif_clip = VideoFileClip(file.name)
+                temp_file = tempfile.NamedTemporaryFile(suffix=".mp4", delete=True)
+                temp_file_path = temp_file.name
+                gif_clip.write_videofile(temp_file_path, codec='libx264')
+                return efb_video_wrapper(temp_file)
+            # 检查是否有透明图层
+            elif "transparency" in gif_image.info:
+                gif_image.save(file.name,"WEBP")
+                return efb_image_wrapper(file)
+            else:
+                return efb_image_wrapper(file)
+            
         except:
             return efb_text_simple_wrapper("Image received and download failed. Please check it on your phone.")
 
