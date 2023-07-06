@@ -51,7 +51,7 @@ def MsgProcess(msg : dict , chat) -> Message:
                 temp_file = tempfile.NamedTemporaryFile(suffix=".mp4", delete=True)
                 temp_file_path = temp_file.name
                 gif_clip.write_videofile(temp_file_path, codec='libx264')
-                return efb_video_wrapper(temp_file)
+                return efb_image_wrapper(temp_file)
             # 检查是否有透明图层
             elif "transparency" in gif_image.info:
                 gif_image.save(file.name,"WEBP")
