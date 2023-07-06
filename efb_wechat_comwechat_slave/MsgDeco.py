@@ -38,7 +38,7 @@ def efb_image_wrapper(file: IO, filename: str = None, text: str = None) -> Messa
     if isinstance(mime, bytes):
         mime = mime.decode()
 
-    if "gif" in mime:
+    if "gif" in mime or "webp" in mime or "mp4" in mime:
         efb_msg.type = MsgType.Animation
     else:
         efb_msg.type = MsgType.Image
